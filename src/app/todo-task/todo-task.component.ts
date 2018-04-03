@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-todo-task',
   templateUrl: './todo-task.component.html',
-  styleUrls: ['./todo-task.component.css']
+  styleUrls: ['./todo-task.component.css'],
+
 })
 export class TodoTaskComponent implements OnInit {
   @Input() tasksList = [];
@@ -19,5 +20,9 @@ export class TodoTaskComponent implements OnInit {
   }
   done(task: string) {
     this.emitDone.emit(task);
+  }
+
+  getColour(): string {
+    return this.tasksList.length >= 5 ? 'red' : 'green';
   }
 }
