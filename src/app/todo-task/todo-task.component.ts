@@ -1,25 +1,34 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation
+} from '@angular/core';
+import { TasksService } from '../services/tasks.service';
 
 @Component({
   selector: 'app-todo-task',
   templateUrl: './todo-task.component.html',
-  styleUrls: ['./todo-task.component.css'],
-
+  styleUrls: ['./todo-task.component.css']
 })
 export class TodoTaskComponent implements OnInit {
-  @Input() tasksList = [];
+  tasksList = [];
 
-  @Output() emitDone = new EventEmitter<string>();
-  @Output() emitRemove = new EventEmitter<string>();
-  constructor() {}
+  constructor(private tasksService: TasksService) {
+    this.tasksService.getTasksDoneObs().subscribe((tasks: Array<string>) => {
+      this.tasksList = tasks;
+    });
+  }
 
   ngOnInit() {}
 
   remove(task: string) {
-    this.emitRemove.emit(task);
+    this.tasksService.remove(task);
   }
   done(task: string) {
-    this.emitDone.emit(task);
+    this.tasksService.done(task);
   }
 
   getColour(): string {
