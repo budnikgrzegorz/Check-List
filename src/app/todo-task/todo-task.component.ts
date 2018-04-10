@@ -17,7 +17,7 @@ export class TodoTaskComponent implements OnInit {
   tasksList = [];
 
   constructor(private tasksService: TasksService) {
-    this.tasksService.getTasksDoneObs().subscribe((tasks: Array<string>) => {
+    this.tasksService.getTasksObs().subscribe((tasks: Array<string>) => {
       this.tasksList = tasks;
     });
   }
